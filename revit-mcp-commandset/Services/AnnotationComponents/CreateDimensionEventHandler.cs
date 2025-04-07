@@ -1,26 +1,3 @@
-﻿// 
-//                       RevitAPI-Solutions
-// Copyright (c) Duong Tran Quang (DTDucas) (baymax.contact@gmail.com)
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-
 using Autodesk.Revit.UI;
 using RevitMCPCommandSet.Models.Annotation;
 using RevitMCPCommandSet.Models.Common;
@@ -28,9 +5,7 @@ using RevitMCPSDK.API.Interfaces;
 
 namespace RevitMCPCommandSet.Services.AnnotationComponents;
 
-/// <summary>
 ///     Handles creation of dimension elements in Revit
-/// </summary>
 public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExternalEventHandler
 {
     #region Fields
@@ -45,34 +20,24 @@ public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExter
 
     #region Properties
 
-    /// <summary>
     ///     List of dimensions to create
-    /// </summary>
     public List<DimensionCreationInfo> DimensionsToCreate { get; private set; }
 
-    /// <summary>
     ///     Result of the execution
-    /// </summary>
     public AIResult<List<int>> Result { get; private set; }
 
     #endregion
 
     #region Public Methods
 
-    /// <summary>
     ///     Sets parameters for dimension creation
-    /// </summary>
-    /// <param name="dimensions">List of dimension information</param>
     public void SetParameters(List<DimensionCreationInfo> dimensions)
     {
         DimensionsToCreate = dimensions;
         _resetEvent.Reset();
     }
 
-    /// <summary>
     ///     Executes the dimension creation process
-    /// </summary>
-    /// <param name="app">UIApplication instance</param>
     public void Execute(UIApplication app)
     {
         _uiApp = app;
@@ -226,20 +191,14 @@ public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExter
         }
     }
 
-    /// <summary>
+
     ///     Waits for completion of the operation
-    /// </summary>
-    /// <param name="timeoutMilliseconds">Timeout in milliseconds</param>
-    /// <returns>True if operation completed within timeout</returns>
     public bool WaitForCompletion(int timeoutMilliseconds = 10000)
     {
         return _resetEvent.WaitOne(timeoutMilliseconds);
     }
 
-    /// <summary>
     ///     Gets the name of the handler
-    /// </summary>
-    /// <returns>Handler name</returns>
     public string GetName()
     {
         return "Create Dimension";
@@ -249,12 +208,7 @@ public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExter
 
     #region Private Methods
 
-    /// <summary>
     ///     Gets references for an element for dimensioning
-    /// </summary>
-    /// <param name="element">Element to get references for</param>
-    /// <param name="view">View context</param>
-    /// <returns>List of references</returns>
     private List<Reference> GetReferences(Element element, View view)
     {
         var references = new List<Reference>();
@@ -333,12 +287,7 @@ public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExter
         return references;
     }
 
-    /// <summary>
     ///     Find a reference at a point in the view
-    /// </summary>
-    /// <param name="view">View to search in</param>
-    /// <param name="point">Point to search at</param>
-    /// <returns>Reference or null</returns>
     private Reference FindReferenceAtPoint(View view, XYZ point)
     {
         // In a non-3D view, we can't easily use ReferenceIntersector
@@ -407,11 +356,7 @@ public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExter
         return null;
     }
 
-    /// <summary>
     ///     Applies parameters to the created dimension
-    /// </summary>
-    /// <param name="dimension">Dimension instance</param>
-    /// <param name="dimensionInfo">Dimension information</param>
     private void ApplyDimensionParameters(Dimension dimension, DimensionCreationInfo dimensionInfo)
     {
         if (dimensionInfo.Options == null) return;
@@ -436,13 +381,7 @@ public class CreateDimensionEventHandler : IExternalEventHandler, IWaitableExter
         }
     }
 
-    /// <summary>
     ///     Converts millimeter coordinates to Revit internal coordinates (feet)
-    /// </summary>
-    /// <param name="x">X coordinate in millimeters</param>
-    /// <param name="y">Y coordinate in millimeters</param>
-    /// <param name="z">Z coordinate in millimeters</param>
-    /// <returns>XYZ point in Revit coordinates</returns>
     private XYZ ConvertToInternalCoordinates(double x, double y, double z)
     {
         return new XYZ(
