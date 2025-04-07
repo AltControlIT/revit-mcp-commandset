@@ -9,14 +9,10 @@ namespace RevitMCPCommandSet.Commands
     {
         private ColorSplashEventHandler _handler => (ColorSplashEventHandler)Handler;
 
-        /// <summary>
         /// Command name
-        /// </summary>
         public override string CommandName => "color_splash";
 
-        /// <summary>
         /// Constructor
-        /// </summary>
         /// <param name="uiApp">Revit UIApplication</param>
         public ColorSplashCommand(UIApplication uiApp)
             : base(new ColorSplashEventHandler(), uiApp)
