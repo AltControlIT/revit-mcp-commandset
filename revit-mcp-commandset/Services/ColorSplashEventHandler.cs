@@ -10,14 +10,10 @@ namespace RevitMCPCommandSet.Services
         private UIDocument uiDoc => uiApp.ActiveUIDocument;
         private Document doc => uiDoc.Document;
 
-        /// <summary>
         /// Event wait object
-        /// </summary>
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
 
-        /// <summary>
         /// Results data
-        /// </summary>
         public object ColoringResults { get; private set; }
 
         private string _categoryName;
@@ -26,9 +22,7 @@ namespace RevitMCPCommandSet.Services
         private JArray _customColors;
         private Random _random = new Random();
 
-        /// <summary>
         /// Set parameters for color splash operation
-        /// </summary>
         public void SetParameters(string categoryName, string parameterName, bool useGradient, JArray customColors)
         {
             _categoryName = categoryName;
@@ -229,27 +223,20 @@ namespace RevitMCPCommandSet.Services
             }
         }
 
-        /// <summary>
+
         /// Wait for operation to complete
-        /// </summary>
-        /// <param name="timeoutMilliseconds">Timeout in milliseconds</param>
-        /// <returns>Whether operation completed within timeout</returns>
         public bool WaitForCompletion(int timeoutMilliseconds = 10000)
         {
             return _resetEvent.WaitOne(timeoutMilliseconds);
         }
 
-        /// <summary>
         /// IExternalEventHandler.GetName implementation
-        /// </summary>
         public string GetName()
         {
             return "Color Splash";
         }
 
-        /// <summary>
         /// Get parameter value as string
-        /// </summary>
         private string GetParameterValueAsString(Parameter parameter)
         {
             if (!parameter.HasValue)
@@ -362,9 +349,7 @@ namespace RevitMCPCommandSet.Services
             }
         }
 
-        /// <summary>
         /// Generate colors for each parameter value
-        /// </summary>
         private Dictionary<string, int[]> GenerateColors(List<string> paramValues)
         {
             Dictionary<string, int[]> colorMap = new Dictionary<string, int[]>();
@@ -431,9 +416,7 @@ namespace RevitMCPCommandSet.Services
             return colorMap;
         }
 
-        /// <summary>
         /// Generate a random RGB color
-        /// </summary>
         private int[] GenerateRandomColor()
         {
             return new int[]
@@ -444,9 +427,7 @@ namespace RevitMCPCommandSet.Services
             };
         }
 
-        /// <summary>
         /// Get solid fill pattern ID for overrides
-        /// </summary>
         private ElementId GetSolidFillPatternId()
         {
             FilteredElementCollector collector = new FilteredElementCollector(doc);
