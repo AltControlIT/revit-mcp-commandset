@@ -13,12 +13,6 @@ public class BalconyInfo
     }
 
     ///     Constructor with position and dimensions
-    /// <param name="x">X position (mm)</param>
-    /// <param name="y">Y position (mm)</param>
-    /// <param name="z">Z position (mm)</param>
-    /// <param name="width">Width (mm)</param>
-    /// <param name="depth">Depth (mm)</param>
-    /// <param name="level">Floor elevation (mm)</param>
     public BalconyInfo(double x, double y, double z, double width, double depth, double level = 0)
     {
         Location = new JZPoint(x, y, z);
