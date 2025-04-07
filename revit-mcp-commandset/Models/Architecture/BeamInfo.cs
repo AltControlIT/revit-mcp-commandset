@@ -15,15 +15,6 @@ public class BeamInfo
     }
 
     ///     Constructor with position and dimensions
-    /// <param name="startX">Start X position (mm)</param>
-    /// <param name="startY">Start Y position (mm)</param>
-    /// <param name="startZ">Start Z position (mm)</param>
-    /// <param name="endX">End X position (mm)</param>
-    /// <param name="endY">End Y position (mm)</param>
-    /// <param name="endZ">End Z position (mm)</param>
-    /// <param name="width">Width (mm)</param>
-    /// <param name="height">Height (mm)</param>
-    /// <param name="level">Level elevation (mm)</param>
     public BeamInfo(double startX, double startY, double startZ, double endX, double endY, double endZ,
         double width, double height, double level = 0)
     {
