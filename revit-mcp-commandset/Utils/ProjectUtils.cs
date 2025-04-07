@@ -6,21 +6,7 @@ namespace RevitMCPCommandSet.Utils
 {
     public static class ProjectUtils
     {
-        /// <summary>
         /// 创建族实例的通用方法
-        /// </summary>
-        /// <param name="doc">当前文档</param>
-        /// <param name="familySymbol">族类型</param>
-        /// <param name="locationPoint">位置点</param>
-        /// <param name="locationLine">基准线</param>
-        /// <param name="baseLevel">底部标高</param>
-        /// <param name="topLevel">第二个标高(用于TwoLevelsBased)</param>
-        /// <param name="baseOffset">底部偏移（ft）</param>
-        /// <param name="topOffset">顶部偏移（ft）</param>
-        /// <param name="faceDirection">参考方向</param>
-        /// <param name="handDirection">参考方向</param>
-        /// <param name="view">视图</param>
-        /// <returns>创建的族实例，失败返回null</returns>
         public static FamilyInstance CreateInstance(
             this Document doc,
             FamilySymbol familySymbol,
