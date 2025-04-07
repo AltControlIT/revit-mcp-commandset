@@ -1,43 +1,11 @@
-﻿// 
-//                       RevitAPI-Solutions
-// Copyright (c) Duong Tran Quang (DTDucas) (baymax.contact@gmail.com)
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-
 using RevitMCPCommandSet.Models.Common;
 
 namespace RevitMCPCommandSet.Utils;
 
-/// <summary>
 ///     Utilities for geometry processing in Revit
-/// </summary>
 public static class GeometryUtils
 {
-    /// <summary>
     ///     Creates a rectangular curve array from dimensions and position
-    /// </summary>
-    /// <param name="width">Width (feet)</param>
-    /// <param name="length">Length (feet)</param>
-    /// <param name="origin">Origin coordinate (0,0 if null)</param>
-    /// <param name="elevation">Elevation (0 if not specified)</param>
-    /// <returns>Curve array forming a rectangle</returns>
     public static CurveArray CreateRectangularFootprint(double width, double length, XYZ origin = null,
         double elevation = 0)
     {
@@ -65,14 +33,7 @@ public static class GeometryUtils
         return curves;
     }
 
-    /// <summary>
     ///     Creates a rectangular CurveLoop from dimensions and position
-    /// </summary>
-    /// <param name="width">Width (feet)</param>
-    /// <param name="length">Length (feet)</param>
-    /// <param name="elevation">Elevation (0 if not specified)</param>
-    /// <param name="origin">Origin coordinate (0,0 if null)</param>
-    /// <returns>CurveLoop forming a rectangle</returns>
     public static CurveLoop CreateRectangularBoundary(double width, double length, double elevation = 0,
         XYZ origin = null)
     {
@@ -100,13 +61,7 @@ public static class GeometryUtils
         return curveLoop;
     }
 
-    /// <summary>
     ///     Calculates the center point of a rectangle
-    /// </summary>
-    /// <param name="width">Width</param>
-    /// <param name="length">Length</param>
-    /// <param name="origin">Origin point</param>
-    /// <returns>Center point</returns>
     public static XYZ CalculateRectangleCenter(double width, double length, XYZ origin)
     {
         return new XYZ(
@@ -116,11 +71,7 @@ public static class GeometryUtils
         );
     }
 
-    /// <summary>
     ///     Converts JZPoint to Revit XYZ (with unit conversion)
-    /// </summary>
-    /// <param name="point">JZPoint (mm)</param>
-    /// <returns>XYZ (feet)</returns>
     public static XYZ ConvertToXYZ(JZPoint point)
     {
         if (point == null) return null;
@@ -131,11 +82,7 @@ public static class GeometryUtils
         );
     }
 
-    /// <summary>
     ///     Converts Revit XYZ to JZPoint (with unit conversion)
-    /// </summary>
-    /// <param name="point">XYZ (feet)</param>
-    /// <returns>JZPoint (mm)</returns>
     public static JZPoint ConvertToJZPoint(XYZ point)
     {
         if (point == null) return null;
@@ -146,22 +93,13 @@ public static class GeometryUtils
         );
     }
 
-    /// <summary>
     ///     Creates JZLine from two points
-    /// </summary>
-    /// <param name="start">Start point</param>
-    /// <param name="end">End point</param>
-    /// <returns>JZLine</returns>
     public static JZLine CreateJZLine(JZPoint start, JZPoint end)
     {
         return new JZLine(start, end);
     }
 
-    /// <summary>
     ///     Creates JZFace from array of points (polygon)
-    /// </summary>
-    /// <param name="points">Array of points</param>
-    /// <returns>JZFace</returns>
     public static JZFace CreateJZFaceFromPoints(List<JZPoint> points)
     {
         var face = new JZFace();
@@ -179,12 +117,7 @@ public static class GeometryUtils
         return face;
     }
 
-    /// <summary>
     ///     Calculates distance between two points
-    /// </summary>
-    /// <param name="p1">First point</param>
-    /// <param name="p2">Second point</param>
-    /// <returns>Distance</returns>
     public static double Distance(XYZ p1, XYZ p2)
     {
         var dx = p2.X - p1.X;
@@ -193,12 +126,7 @@ public static class GeometryUtils
         return Math.Sqrt(dx * dx + dy * dy + dz * dz);
     }
 
-    /// <summary>
     ///     Finds intersection of two lines
-    /// </summary>
-    /// <param name="line1">First line</param>
-    /// <param name="line2">Second line</param>
-    /// <returns>Intersection point or null if none</returns>
     public static XYZ FindIntersection(Line line1, Line line2)
     {
         // Implement algorithm to calculate intersection
@@ -209,13 +137,7 @@ public static class GeometryUtils
         return null;
     }
 
-    /// <summary>
     ///     Finds normal vector of a plane
-    /// </summary>
-    /// <param name="p1">First point on plane</param>
-    /// <param name="p2">Second point on plane</param>
-    /// <param name="p3">Third point on plane</param>
-    /// <returns>Normalized normal vector</returns>
     public static XYZ ComputeNormal(XYZ p1, XYZ p2, XYZ p3)
     {
         var v1 = p2.Subtract(p1);
@@ -224,13 +146,7 @@ public static class GeometryUtils
         return normal.Normalize();
     }
 
-    /// <summary>
     ///     Checks if two lines are parallel
-    /// </summary>
-    /// <param name="line1">First line</param>
-    /// <param name="line2">Second line</param>
-    /// <param name="tolerance">Tolerance</param>
-    /// <returns>True if parallel</returns>
     public static bool IsParallel(Line line1, Line line2, double tolerance = 1e-6)
     {
         var dir1 = line1.Direction.Normalize();
@@ -241,13 +157,7 @@ public static class GeometryUtils
         return Math.Abs(dot - 1.0) < tolerance;
     }
 
-    /// <summary>
     ///     Checks if two lines are perpendicular
-    /// </summary>
-    /// <param name="line1">First line</param>
-    /// <param name="line2">Second line</param>
-    /// <param name="tolerance">Tolerance</param>
-    /// <returns>True if perpendicular</returns>
     public static bool IsPerpendicular(Line line1, Line line2, double tolerance = 1e-6)
     {
         var dir1 = line1.Direction.Normalize();
